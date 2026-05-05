@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi 1: Manajemen Strategi | Giti Prastya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap');
+
+        html { scroll-behavior: smooth; }
+        
+        :root {
+            --primary: #831843;
+            --accent: #db2777;
+            --bg: #fff1f2;
+            --card: #ffffff;
+            --text: #1e293b;
+            --soft-pink: #fce7f3;
+        }
+
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+        #progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            width: 0%;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(to bottom, var(--primary), var(--accent)); 
+            border-radius: 20px; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 0;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            padding: 15px 30px;
+            background: rgba(255, 241, 242, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 900;
+            border-bottom: 1px solid rgba(131, 24, 67, 0.05);
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .back-btn:hover { color: var(--accent); transform: translateX(-5px); }
+
+        .hero-section {
+            text-align: center;
+            padding: 80px 20px;
+            max-width: 800px;
+        }
+        .hero-section span {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+        .hero-section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary);
+            margin: 15px 0;
+            text-transform: uppercase;
+        }
+
+        .content-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: auto;
+            gap: 20px;
+            width: 100%;
+            max-width: 1100px;
+            padding: 20px;
+            margin-bottom: 80px;
+        }
+
+        .materi-card {
+            background: var(--card);
+            border-radius: 30px;
+            padding: 35px;
+            border: 1px solid rgba(131, 24, 67, 0.05);
+            transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+        }
+        .materi-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+        .col-4 { grid-column: span 4; }
+        .col-2 { grid-column: span 2; }
+
+        .materi-card h3 {
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .materi-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #1e293b;
+        }
+
+        .explanation-text {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px dashed var(--soft-pink);
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        ul { list-style: none; margin-top: 10px; }
+        ul li {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+            color: #334155;
+        }
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        footer { padding: 40px; color: #64748b; font-size: 0.75rem; text-align: center; width: 100%; border-top: 1px solid var(--soft-pink); background: white; }
+
+        @media (max-width: 900px) {
+            .content-container { grid-template-columns: repeat(1, 1fr); }
+            .col-2, .col-4 { grid-column: span 1; }
+            .hero-section h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+
+    <div id="progress-container"><div id="progress-bar"></div></div>
+
+    <nav>
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-house"></i> DASHBOARD</a>
+        <div style="font-size: 0.6rem; font-weight: 800; color: var(--accent); letter-spacing: 2px;">MANAJEMEN STRATEGI</div>
+    </nav>
+
+    <header class="hero-section">
+        <span>MATERI 1</span>
+        <h1>Pengantar Manajemen Strategi</h1>
+    </header>
+
+    <main class="content-container">
+        
+        <div class="materi-card col-4">
+            <h3><i class="fa-solid fa-book"></i> Pengertian</h3>
+            <p>Manajemen strategi adalah proses menyeluruh dalam merumuskan, mengimplementasikan, dan mengevaluasi strategi organisasi untuk mencapai tujuan jangka panjang secara efektif dan efisien.</p>
+        </div>
+
+        <div class="materi-card col-2">
+            <h3><i class="fa-solid fa-users"></i> Menurut para ahli</h3>
+            <ul>
+                <li><b>Fred R. David:</b> seni dan ilmu dalam merumuskan, mengimplementasikan, dan mengevaluasi keputusan strategis.</li>
+                <li><b>Hunger & Wheelen:</b> serangkaian keputusan yang menentukan kinerja jangka panjang organisasi.</li>
+                <li><b>Pearce & Robinson:</b> proses menghasilkan strategi untuk mencapai tujuan organisasi.</li>
+            </ul>
+        </div>
+
+        <div class="materi-card col-2">
+            <h3><i class="fa-solid fa-gavel"></i> Dasar Hukum & Standar Akuntansi</h3>
+            <ul>
+                <li>UU No. 40 Tahun 2007 (Perseroan Terbatas) → mengatur tata kelola perusahaan</li>
+                <li>PSAK 1 → penyajian laporan keuangan (dasar strategi keuangan)</li>
+                <li>PSAK 8 (peristiwa setelah periode pelaporan) → mempengaruhi keputusan strategis</li>
+                <li>Good Corporate Governance (GCG) → prinsip transparansi, akuntabilitas, responsibilitas</li>
+            </ul>
+            <div class="explanation-text">
+                <b>Penjelasan:</b> Standar ini menjadi dasar agar strategi perusahaan selaras dengan aturan dan transparan dalam pengambilan keputusan.
+            </div>
+        </div>
+
+        <div class="materi-card col-2">
+            <h3><i class="fa-solid fa-sitemap"></i> Komponen</h3>
+            <ul>
+                <li><b>Visi</b> → arah masa depan perusahaan</li>
+                <li><b>Misi</b> → tujuan utama keberadaan perusahaan</li>
+                <li><b>Tujuan</b> → target spesifik yang ingin dicapai</li>
+                <li><b>Strategi</b> → cara mencapai tujuan</li>
+                <li><b>Kebijakan</b> → aturan pendukung</li>
+                <li><b>Program & anggaran</b> → implementasi nyata</li>
+            </ul>
+            <div class="explanation-text">
+                <b>Penjelasan:</b> Komponen ini saling terhubung: visi → misi → tujuan → strategi → pelaksanaan.
+            </div>
+        </div>
+
+        <div class="materi-card col-2">
+            <h3><i class="fa-solid fa-clipboard-check"></i> Metode Penyusunan</h3>
+            <ul>
+                <li>Analisis lingkungan (SWOT, PESTEL)</li>
+                <li>Penetapan visi dan misi</li>
+                <li>Formulasi strategi</li>
+                <li>Implementasi strategi</li>
+                <li>Evaluasi</li>
+            </ul>
+            <div class="explanation-text">
+                <b>Penjelasan:</b> Metode ini memastikan strategi dibuat berdasarkan kondisi nyata, bukan asumsi.
+            </div>
+        </div>
+
+        <div class="materi-card col-2">
+            <h3><i class="fa-solid fa-filter"></i> Prosedur & Langkah Eliminasi</h3>
+            <ul>
+                <li>Evaluasi strategi lama</li>
+                <li>Identifikasi strategi tidak efektif</li>
+                <li>Hentikan program tidak menguntungkan</li>
+                <li>Revisi strategi sesuai kondisi</li>
+            </ul>
+            <div class="explanation-text">
+                <b>Penjelasan:</b> Eliminasi penting agar perusahaan tidak membuang sumber daya pada strategi gagal.
+            </div>
+        </div>
+
+        <div class="materi-card col-2">
+            <h3><i class="fa-solid fa-triangle-exclamation"></i> Tantangan & Ketentuan Khusus</h3>
+            <ul>
+                <li>Perubahan teknologi cepat</li>
+                <li>Persaingan global</li>
+                <li>Ketidakpastian ekonomi</li>
+                <li>Keterbatasan SDM</li>
+            </ul>
+            <div class="explanation-text">
+                <b>Penjelasan:</b> Perusahaan harus adaptif dan fleksibel terhadap perubahan.
+            </div>
+        </div>
+
+        <div class="materi-card col-4">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                <div>
+                    <h3 style="font-size: 1rem;"><i class="fa-solid fa-gears"></i> Fungsi</h3>
+                    <ul>
+                        <li>Perencanaan jangka panjang</li>
+                        <li>Pengambilan keputusan</li>
+                        <li>Koordinasi antar bagian</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 1rem;"><i class="fa-solid fa-bullseye"></i> Tujuan</h3>
+                    <ul>
+                        <li>Mencapai keunggulan kompetitif</li>
+                        <li>Memastikan keberlanjutan bisnis</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 1rem;"><i class="fa-solid fa-chart-line"></i> Manfaat</h3>
+                    <ul>
+                        <li>Arah perusahaan jelas</li>
+                        <li>Risiko berkurang</li>
+                        <li>Efisiensi meningkat</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>&copy; 2026 Giti Prastya &bull; Manajemen Strategi &bull; Universitas Pat Petulai</footer>
+
+    <script>
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+
+</html>

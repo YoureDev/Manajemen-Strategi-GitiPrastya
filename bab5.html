@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi 5: Manajemen Strategi | Giti Prastya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap');
+
+        html { scroll-behavior: smooth; }
+        
+        :root {
+            --primary: #831843;
+            --accent: #db2777;
+            --bg: #fff1f2;
+            --card: #ffffff;
+            --text: #1e293b;
+            --soft-pink: #fce7f3;
+        }
+
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+        
+        #progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            width: 0%;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(to bottom, var(--primary), var(--accent)); 
+            border-radius: 20px; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 0;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            padding: 15px 30px;
+            background: rgba(255, 241, 242, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 900;
+            border-bottom: 1px solid rgba(131, 24, 67, 0.05);
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        
+        .back-btn:hover { color: var(--accent); transform: translateX(-5px); }
+
+        .hero-section {
+            text-align: center;
+            padding: 80px 20px;
+            max-width: 800px;
+        }
+        
+        .hero-section span {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+        
+        .hero-section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary);
+            margin: 15px 0;
+            text-transform: uppercase;
+        }
+
+        .content-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: auto;
+            gap: 20px;
+            width: 100%;
+            max-width: 1100px;
+            padding: 20px;
+            margin-bottom: 80px;
+        }
+
+        .materi-card {
+            background: var(--card);
+            border-radius: 30px;
+            padding: 35px;
+            border: 1px solid rgba(131, 24, 67, 0.05);
+            transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .materi-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+        .col-4 { grid-column: span 4; }
+        .col-2 { grid-column: span 2; }
+
+        .materi-card h3 {
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .materi-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #1e293b;
+        }
+
+        ul { list-style: none; margin-top: 10px; }
+        ul li {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+            color: #334155;
+        }
+        
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        footer { 
+            padding: 40px; 
+            color: #64748b; 
+            font-size: 0.75rem; 
+            text-align: center; 
+            width: 100%; 
+            border-top: 1px solid var(--soft-pink); 
+            background: white; 
+            margin-top: auto;
+            align-self: stretch;
+        }
+
+        @media (max-width: 900px) {
+            .content-container { grid-template-columns: repeat(1, 1fr); }
+            .col-2, .col-4 { grid-column: span 1; }
+            .hero-section h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+
+    <div id="progress-container"><div id="progress-bar"></div></div>
+
+    <nav>
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-house"></i> DASHBOARD</a>
+        <div style="font-size: 0.6rem; font-weight: 800; color: var(--accent); letter-spacing: 2px;">MANAJEMEN STRATEGI</div>
+    </nav>
+
+    <header class="hero-section">
+        <span>MATERI 5</span>
+        <h1>ANALISIS SWOT</h1>
+    </header>
+
+    <main class="content-container">
+        
+        <div class="materi-card col-4">
+            <h3><i class="fa-solid fa-magnifying-glass"></i> A. PENGERTIAN ANALISIS SWOT</h3>
+            <p>Analisis SWOT adalah metode perencanaan strategis yang digunakan untuk mengidentifikasi dan mengevaluasi kekuatan (Strengths), kelemahan (Weaknesses), peluang (Opportunities), dan ancaman (Threats) dalam suatu organisasi atau bisnis.</p>
+            <p>Menurut <b>Albert Humphrey</b>:</p>
+            <p>Analisis SWOT digunakan untuk mengevaluasi posisi strategis organisasi melalui faktor internal dan eksternal.</p>
+        </div>
+
+        <div class="materi-card col-4">
+            <h3><i class="fa-solid fa-layer-group"></i> B. KOMPONEN ANALISIS SWOT</h3>
+            <p>Analisis SWOT terdiri dari 4 komponen utama:</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 15px;">
+                <div>
+                    <p><b>1. Strength (Kekuatan) – Faktor Internal</b></p>
+                    <p style="font-size: 0.85rem;">Kekuatan adalah keunggulan yang dimiliki perusahaan dibandingkan pesaing.</p>
+                    <ul>
+                        <li>Produk berkualitas tinggi</li>
+                        <li>Merek terkenal</li>
+                        <li>SDM kompeten</li>
+                        <li>Teknologi modern</li>
+                        <li>Modal kuat</li>
+                    </ul>
+                </div>
+                <div>
+                    <p><b>2. Weakness (Kelemahan) – Faktor Internal</b></p>
+                    <p style="font-size: 0.85rem;">Kelemahan adalah keterbatasan atau kekurangan yang dimiliki perusahaan.</p>
+                    <ul>
+                        <li>Kurangnya inovasi</li>
+                        <li>SDM kurang terampil</li>
+                        <li>Modal terbatas</li>
+                        <li>Manajemen kurang efektif</li>
+                        <li>Lokasi kurang strategis</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 15px;">
+                <div>
+                    <p><b>3. Opportunity (Peluang) – Faktor Eksternal</b></p>
+                    <p style="font-size: 0.85rem;">Peluang adalah kondisi luar yang dapat dimanfaatkan untuk keuntungan perusahaan.</p>
+                    <ul>
+                        <li>Pertumbuhan pasar</li>
+                        <li>Perkembangan teknologi</li>
+                        <li>Perubahan tren konsumen</li>
+                        <li>Dukungan pemerintah</li>
+                        <li>Sedikit pesaing</li>
+                    </ul>
+                </div>
+                <div>
+                    <p><b>4. Threat (Ancaman) – Faktor Eksternal</b></p>
+                    <p style="font-size: 0.85rem;">Ancaman adalah faktor luar yang dapat menghambat atau merugikan perusahaan.</p>
+                    <ul>
+                        <li>Persaingan ketat</li>
+                        <li>Perubahan regulasi</li>
+                        <li>Krisis ekonomi</li>
+                        <li>Produk substitusi</li>
+                        <li>Perubahan selera konsumen</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="materi-card col-4">
+            <h3><i class="fa-solid fa-bullseye"></i> C. TUJUAN ANALISIS SWOT</h3>
+            <ul>
+                <li>Mengidentifikasi posisi perusahaan</li>
+                <li>Menyusun strategi yang tepat</li>
+                <li>Memaksimalkan kekuatan dan peluang</li>
+                <li>Meminimalkan kelemahan dan ancaman</li>
+                <li>Mendukung pengambilan keputusan</li>
+            </ul>
+        </div>
+
+        <div class="materi-card col-4">
+            <h3><i class="fa-solid fa-gears"></i> D. FUNGSI ANALISIS SWOT</h3>
+            <p>Alat perencanaan strategi, Alat evaluasi bisnis, Dasar pengambilan keputusan, Meningkatkan daya saing perusahaan.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 15px;">
+                <div>
+                    <p><b>1. Strategi SO (Strength–Opportunity)</b></p>
+                    <p style="font-size: 0.85rem;">Menggunakan kekuatan untuk memanfaatkan peluang. Contoh: Memanfaatkan teknologi canggih untuk memperluas pasar.</p>
+                </div>
+                <div>
+                    <p><b>2. Strategi ST (Strength–Threat)</b></p>
+                    <p style="font-size: 0.85rem;">Menggunakan kekuatan untuk mengatasi ancaman. Contoh: Memperkuat brand untuk menghadapi pesaing.</p>
+                </div>
+                <div>
+                    <p><b>3. Strategi WO (Weakness–Opportunity)</b></p>
+                    <p style="font-size: 0.85rem;">Meminimalkan kelemahan dengan memanfaatkan peluang. Contoh: Melatih karyawan agar mampu mengikuti perkembangan teknologi.</p>
+                </div>
+                <div>
+                    <p><b>4. Strategi WT (Weakness–Threat)</b></p>
+                    <p style="font-size: 0.85rem;">Mengurangi kelemahan dan menghindari ancaman. Contoh: Efisiensi biaya untuk bertahan di kondisi krisis.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="materi-card col-4">
+            <h3><i class="fa-solid fa-stairs"></i> E. LANGKAH-LANGKAH MENYUSUN ANALISIS SWOT</h3>
+            <ul>
+                <li>Mengidentifikasi faktor internal (kekuatan dan kelemahan)</li>
+                <li>Mengidentifikasi faktor eksternal (peluang dan ancaman)</li>
+                <li>Menyusun matriks SWOT</li>
+                <li>Menganalisis hubungan antar faktor</li>
+                <li>Menentukan strategi yang tepat</li>
+            </ul>
+        </div>
+
+        <div class="materi-card col-4">
+            <h3><i class="fa-solid fa-utensils"></i> F. CONTOH ANALISIS SWOT SEDERHANA</h3>
+            <p><b>Contoh: Usaha Kuliner</b></p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 15px;">
+                <div>
+                    <p><b>Strength:</b></p>
+                    <ul><li>Rasa makanan enak</li><li>Harga terjangkau</li></ul>
+                    <p><b>Weakness:</b></p>
+                    <ul><li>Tempat kecil</li><li>Promosi kurang</li></ul>
+                </div>
+                <div>
+                    <p><b>Opportunity:</b></p>
+                    <ul><li>Banyak pelanggan di sekitar</li><li>Tren kuliner meningkat</li></ul>
+                    <p><b>Threat:</b></p>
+                    <ul><li>Banyak pesaing</li><li>Harga bahan baku naik</li></ul>
+                </div>
+                <div>
+                    <p><b>Strategi:</b></p>
+                    <ul>
+                        <li>SO → Promosi online untuk menarik pelanggan</li>
+                        <li>ST → Menjaga kualitas rasa agar tetap unggul</li>
+                        <li>WO → Memperluas tempat usaha</li>
+                        <li>WT → Mengontrol biaya produksi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="materi-card col-2">
+            <h3><i class="fa-solid fa-scale-balanced"></i> G. KELEBIHAN DAN KEKURANGAN SWOT</h3>
+            <p><b>Kelebihan:</b></p>
+            <ul>
+                <li>Mudah dipahami dan digunakan</li>
+                <li>Sederhana dan fleksibel</li>
+                <li>Membantu perencanaan strategi</li>
+            </ul>
+            <p style="margin-top: 10px;"><b>Kekurangan:</b></p>
+            <ul>
+                <li>Bersifat subjektif</li>
+                <li>Tidak memberikan solusi langsung</li>
+                <li>Bergantung pada kualitas data</li>
+            </ul>
+        </div>
+
+        <div class="materi-card col-2">
+            <h3><i class="fa-solid fa-diagram-project"></i> H. HUBUNGAN SWOT</h3>
+            <p>Analisis SWOT merupakan bagian penting dalam manajemen strategi karena digunakan untuk:</p>
+            <ul>
+                <li>Menyusun strategi bisnis</li>
+                <li>Mengevaluasi kondisi perusahaan</li>
+                <li>Menentukan arah pengembangan</li>
+            </ul>
+        </div>
+
+        <div class="materi-card col-4" style="border-left: 5px solid var(--accent);">
+            <h3><i class="fa-solid fa-check-double"></i> I. KESIMPULAN</h3>
+            <p>Analisis SWOT adalah alat penting dalam perencanaan strategi yang membantu perusahaan memahami kondisi internal dan eksternal. Dengan analisis ini, perusahaan dapat menyusun strategi yang tepat untuk mencapai tujuan dan meningkatkan daya saing.</p>
+        </div>
+
+    </main>
+
+    <footer>&copy; 2026 Giti Prastya &bull; Manajemen Strategi &bull; Universitas Pat Petulai</footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressBar = document.getElementById("progress-bar");
+            if (progressBar) progressBar.style.width = scrolled + "%";
+        });
+    </script>
+</body>
+
+</html>

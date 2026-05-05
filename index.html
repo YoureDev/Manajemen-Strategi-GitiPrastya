@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANAJEMEN STRATEGI | Giti Prastya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap');
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary: #831843;
+            --accent: #db2777;
+            --bg: #fff1f2;
+            --card: #ffffff;
+            --text: #1e293b;
+            --soft-pink: #fce7f3;
+        }
+
+        ::-webkit-scrollbar { 
+            width: 8px; 
+        }
+        ::-webkit-scrollbar-track { 
+            background: var(--bg); 
+        }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(to bottom, var(--primary), var(--accent)); 
+            border-radius: 20px; 
+            border: 2px solid var(--bg); 
+        }
+        ::-webkit-scrollbar-thumb:hover { 
+            background: linear-gradient(to bottom, var(--accent), var(--primary)); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .bento-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 180px; 
+            gap: 20px;
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 60px; 
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 30px;
+            padding: 30px;
+            border: 1px solid rgba(131, 24, 67, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(131, 24, 67, 0.08);
+        }
+
+        .card-main { grid-column: span 2; grid-row: span 2; background: var(--primary); color: white; display: flex; flex-direction: column; justify-content: flex-end; }
+        
+        .card-profile { grid-column: span 1; grid-row: span 2; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; border: 2px dashed var(--accent); }
+        
+        .profile-item { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; width: 100%; }
+        .profile-info-text { display: flex; flex-direction: column; text-align: left; }
+        .profile-label { font-size: 0.6rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; }
+        .profile-value { font-size: 0.85rem; font-weight: 700; color: var(--text); }
+        .profile-divider { width: 100%; height: 1px; background: linear-gradient(to right, var(--soft-pink), transparent); margin-bottom: 8px; }
+        
+        .card-stat { grid-column: span 1; grid-row: span 1; display: flex; align-items: center; gap: 15px; }
+        .card-wide { grid-column: span 2; grid-row: span 1; display: flex; align-items: center; justify-content: space-between; }
+
+        .clickable-card {
+            cursor: pointer;
+        }
+
+        .card-main h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 10px; }
+        .card-main p { opacity: 0.8; font-weight: 500; font-size: 0.9rem; }
+
+        .avatar-circle { width: 80px; height: 80px; background: var(--bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--accent); margin-bottom: 20px; }
+        
+        .introduce-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .introduce-btn:hover { background: var(--accent); letter-spacing: 1px; }
+
+        .icon-box { width: 50px; height: 50px; background: var(--bg); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem; }
+
+        .modal {
+            position: fixed; inset: 0;
+            background: rgba(131, 24, 67, 0.2);
+            backdrop-filter: blur(10px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 100;
+        }
+        .modal-content { background: white; padding: 40px; border-radius: 40px; width: 90%; max-width: 450px; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+
+        @media (max-width: 900px) {
+            .bento-container { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; }
+            .card-main, .card-profile, .card-wide { grid-column: span 2; }
+            .card-stat { grid-column: span 1; }
+            .card-university { grid-column: span 2 !important; }
+        }
+
+        .roadmap-section { width: 100%; max-width: 800px; padding-bottom: 60px; }
+        .roadmap-title { text-align: center; margin-bottom: 40px; }
+        .roadmap-title h2 { font-size: 1.8rem; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+        .roadmap-title p { color: #64748b; font-size: 0.9rem; margin-top: 5px; }
+
+        .timeline { position: relative; display: flex; flex-direction: column; gap: 30px; }
+        .timeline::before { content: ''; position: absolute; left: 30px; top: 0; width: 2px; height: 100%; background: linear-gradient(to bottom, var(--soft-pink), var(--primary), var(--bg)); opacity: 0.3; }
+
+        .mission-node { display: flex; align-items: center; gap: 25px; text-decoration: none; color: inherit; padding: 20px; background: white; border-radius: 25px; border: 1px solid rgba(131, 24, 67, 0.05); transition: 0.4s; position: relative; z-index: 1; }
+        .mission-node:hover { transform: translateX(15px); border-color: var(--accent); box-shadow: 0 15px 35px rgba(131, 24, 67, 0.1); }
+
+        .node-number { min-width: 60px; height: 60px; background: var(--bg); color: var(--primary); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; }
+        .node-info h4 { font-size: 1.1rem; color: var(--primary); margin-bottom: 4px; }
+        .node-info p { font-size: 0.8rem; color: #64748b; }
+        .arrow-link { margin-left: auto; color: var(--soft-pink); font-size: 1.2rem; }
+
+        .toolbox-section { 
+            width: 100%; 
+            max-width: 1100px; 
+            margin-bottom: 80px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .toolbox-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 20px; 
+            width: 100%;
+        }
+        .tool-card { 
+            background: var(--card); 
+            padding: 30px 20px; 
+            border-radius: 25px; 
+            border: 1px solid rgba(131, 24, 67, 0.05); 
+            text-align: center; 
+            transition: all 0.4s ease; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+        .tool-card:hover { background: var(--primary); color: white; transform: translateY(-10px); box-shadow: 0 15px 30px rgba(131, 24, 67, 0.1); }
+        .tool-card i { font-size: 1.8rem; color: var(--accent); margin-bottom: 15px; display: block; transition: 0.3s; }
+        .tool-card:hover i { color: white; transform: scale(1.1); }
+        .tool-card h5 { font-weight: 800; font-size: 1rem; margin-bottom: 8px; }
+        .tool-card p.main-p { font-size: 0.75rem; opacity: 0.7; line-height: 1.4; transition: 0.3s; }
+        
+        .tool-card .quick-insight {
+            max-height: 0;
+            overflow: hidden;
+            font-size: 0.65rem;
+            font-style: italic;
+            opacity: 0;
+            transition: all 0.4s ease;
+            color: var(--soft-pink);
+            margin-top: 0;
+        }
+        .tool-card:hover .quick-insight {
+            max-height: 80px;
+            opacity: 1;
+            margin-top: 10px;
+        }
+        .tool-card:hover p.main-p { opacity: 1; font-weight: 600; }
+
+        footer { padding: 40px; color: #64748b; font-size: 0.75rem; text-align: center; width: 100%; }
+
+        .reveal-node {
+            opacity: 0; transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        .reveal-node.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            .toolbox-grid { grid-template-columns: repeat(2, 1fr); } 
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bento-container">
+        <div class="card card-main">
+            <h1>MANAJEMEN<br>STRATEGI</h1>
+            <p>Eksplorasi strategi bisnis modern bersama Giti Prastya</p>
+        </div>
+
+        <div class="card card-profile">
+            <h3 style="color: var(--primary); font-weight: 800; font-size: 1rem; margin-bottom: 15px; text-align: center; width: 100%; letter-spacing: 1px;">IDENTITAS</h3>
+            
+            <div class="profile-item">
+                <div class="icon-box" style="width: 35px; height: 35px; font-size: 1rem;"><i class="fa-solid fa-user"></i></div>
+                <div class="profile-info-text">
+                    <span class="profile-label">Nama Lengkap</span>
+                    <span class="profile-value">GITI PRASTYA</span>
+                </div>
+            </div>
+            <div class="profile-divider"></div>
+
+            <div class="profile-item">
+                <div class="icon-box" style="width: 35px; height: 35px; font-size: 1rem;"><i class="fa-solid fa-id-card"></i></div>
+                <div class="profile-info-text">
+                    <span class="profile-label">NPM</span>
+                    <span class="profile-value">202305005</span>
+                </div>
+            </div>
+            <div class="profile-divider"></div>
+
+            <div class="profile-item">
+                <div class="icon-box" style="width: 35px; height: 35px; font-size: 1rem;"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="profile-info-text">
+                    <span class="profile-label">Semester</span>
+                    <span class="profile-value">6 (enam)</span>
+                </div>
+            </div>
+            <div class="profile-divider"></div>
+
+            <div class="profile-item">
+                <div class="icon-box" style="width: 35px; height: 35px; font-size: 1rem;"><i class="fa-solid fa-calendar-check"></i></div>
+                <div class="profile-info-text">
+                    <span class="profile-label">Tahun</span>
+                    <span class="profile-value">Akademik 2026</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-stat">
+            <div class="icon-box"><i class="fa-solid fa-book"></i></div>
+            <div><h4 style="font-size: 1.2rem;">05</h4><p style="font-size: 0.6rem; color: #64748b; font-weight: 800;">MATERI</p></div>
+        </div>
+
+        <div class="card card-stat">
+            <div class="icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div><h4 style="font-size: 1.2rem;">06</h4><p style="font-size: 0.6rem; color: #64748b; font-weight: 800;">SEMESTER</p></div>
+        </div>
+
+        <div class="card card-wide clickable-card" onclick="window.location.hash='#mission-control'">
+            <div>
+                <h4 style="color: var(--primary);">Mulai Belajar Sekarang</h4>
+                <p style="font-size: 0.8rem; color: #64748b;">Pilih modul yang ingin kamu kuasai hari ini.</p>
+            </div>
+            <i class="fa-solid fa-arrow-right" style="color: var(--accent); font-size: 1.5rem;"></i>
+        </div>
+
+        <div class="card card-stat">
+            <div class="icon-box" style="background: #f0fdf4; color: #16a34a;"><i class="fa-solid fa-circle-check"></i></div>
+            <div><h4 style="font-size: 0.9rem;">Verified</h4><p style="font-size: 0.6rem; color: #64748b; font-weight: 800;">COURSE 2026</p></div>
+        </div>
+
+        <div class="card card-stat">
+            <div class="icon-box"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div><h4 style="font-size: 0.65rem; line-height:1.2; font-weight: 800;">TIKA OKATARINA, S.Pd., M.Ak.</h4><p style="font-size: 0.5rem; color: #64748b; font-weight: 800;">DOSEN PENGAMPU</p></div>
+        </div>
+
+        <div class="card card-wide card-university" style="grid-column: span 4;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="icon-box" style="background: white; border: 1px solid var(--soft-pink);"><i class="fa-solid fa-university"></i></div>
+                <div>
+                    <h4 style="color: var(--primary); text-transform: uppercase; font-size: 1rem;">UNIVERSITAS PAT PETULAI</h4>
+                    <p style="font-size: 0.7rem; color: #64748b;">Fakultas Ekonomi & Bisnis • Manajemen</p>
+                </div>
+            </div>
+            <div style="font-size: 0.6rem; font-weight: 800; color: var(--accent); opacity: 0.5;">ACADEMIC HUB</div>
+        </div>
+    </div>
+
+    <section class="roadmap-section" id="mission-control">
+        <div class="roadmap-title">
+            <p style="font-size: 0.7rem; font-weight: 800; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px;">The Learning Path</p>
+            <h2>Mission Control</h2>
+        </div>
+        <div class="timeline">
+            <a href="bab1.html" class="mission-node reveal-node">
+                <div class="node-number">01</div>
+                <div class="node-info"><h4>Pengantar Manajemen Strategi</h4><p>Fondasi, ruang lingkup, dan esensi manajemen strategi.</p></div>
+                <div class="arrow-link"><i class="fa-solid fa-circle-arrow-right"></i></div>
+            </a>
+            <a href="bab2.html" class="mission-node reveal-node">
+                <div class="node-number">02</div>
+                <div class="node-info"><h4>Fungsi Manajemen Strategi</h4><p>Perencanaan hingga eksekusi dalam bingkai strategis.</p></div>
+                <div class="arrow-link"><i class="fa-solid fa-circle-arrow-right"></i></div>
+            </a>
+            <a href="bab3.html" class="mission-node reveal-node">
+                <div class="node-number">03</div>
+                <div class="node-info"><h4>Komponen Visi, Misi & Tujuan</h4><p>Menentukan arah dan alasan eksistensi perusahaan.</p></div>
+                <div class="arrow-link"><i class="fa-solid fa-circle-arrow-right"></i></div>
+            </a>
+            <a href="bab4.html" class="mission-node reveal-node">
+                <div class="node-number">04</div>
+                <div class="node-info"><h4>Audit Strategi & Lingkungan Bisnis</h4><p>Evaluasi mendalam lingkungan internal & eksternal.</p></div>
+                <div class="arrow-link"><i class="fa-solid fa-circle-arrow-right"></i></div>
+            </a>
+            <a href="bab5.html" class="mission-node reveal-node">
+                <div class="node-number">05</div>
+                <div class="node-info"><h4>Analisis SWOT</h4><p>Membedah kekuatan untuk memenangkan peluang pasar.</p></div>
+                <div class="arrow-link"><i class="fa-solid fa-circle-arrow-right"></i></div>
+            </a>
+        </div>
+    </section>
+
+    <section class="toolbox-section">
+        <div class="roadmap-title">
+            <p style="font-size: 0.7rem; font-weight: 800; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px;">Executive Assets</p>
+            <h2 style="font-size: 1.4rem;">Strategic Toolbox</h2>
+        </div>
+        <div class="toolbox-grid">
+            <div class="tool-card reveal-node">
+                <i class="fa-solid fa-arrows-to-circle"></i>
+                <h5>SWOT</h5>
+                <p class="main-p">Internal & External Analysis</p>
+                <p class="quick-insight">"Memetakan kekuatan & kelemahan internal vs peluang & ancaman eksternal."</p>
+            </div>
+            <div class="tool-card reveal-node">
+                <i class="fa-solid fa-microscope"></i>
+                <h5>PESTEL</h5>
+                <p class="main-p">Macro Environment Audit</p>
+                <p class="quick-insight">"Analisis faktor Politik, Ekonomi, Sosial, Teknologi, Lingkungan, & Hukum."</p>
+            </div>
+            <div class="tool-card reveal-node">
+                <i class="fa-solid fa-chess-knight"></i>
+                <h5>PORTER</h5>
+                <p class="main-p">5 Competitive Forces</p>
+                <p class="quick-insight">"Mengukur intensitas persaingan & daya tarik laba dalam suatu industri."</p>
+            </div>
+            <div class="tool-card reveal-node">
+                <i class="fa-solid fa-chart-line"></i>
+                <h5>BCG</h5>
+                <p class="main-p">Market Share Growth</p>
+                <p class="quick-insight">"Evaluasi portofolio bisnis berdasarkan pangsa pasar & laju pertumbuhan."</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>&copy; 2026 Giti Prastya &bull; Manajemen Strategi S6 &bull; Universitas Pat Petulai</footer>
+
+    <div class="modal" id="pModal">
+        <div class="modal-content">
+            <h2 style="color: var(--primary); margin-bottom: 10px;">Halo, Saya Giti!</h2>
+            <p style="color: #64748b; line-height: 1.6; margin-bottom: 20px;">Seorang mahasiswa semester 6 yang antusias dengan dunia strategi bisnis. Mari bersama-sama membedah bagaimana perusahaan besar memenangkan pasar!</p>
+            <button class="introduce-btn" onclick="toggleModal()">TUTUP</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal() {
+            const m = document.getElementById("pModal");
+            m.style.display = (m.style.display === "flex") ? "none" : "flex";
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-node').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
